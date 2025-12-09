@@ -16,7 +16,6 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 from logging import warning
 import pickle
-from tensorflow.keras.mixed_precision import experimental as mixed_precision
 from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping
 from os.path import splitext
 import pandas as pd
@@ -49,7 +48,7 @@ def load_fragments(fragments_dir, shuffle_=True, balance=True, nr_seqs=None):
         nr_seqs = nr_seqs_max
     x = []
     y = np.array([])
-    y_species = np.array([], dtype=np.int)
+    y_species = np.array([], dtype=int)
 
     for index, fragments_i in enumerate(fragments):
         class_, class_fragments = fragments_i
@@ -98,7 +97,7 @@ class FragmentGenerator(Sequence):
 
     def __len__(self):
         return np.ceil(len(self.x)
-                       / float(self.batch_size)).astype(np.int)
+                       / float(self.batch_size)).astype(int)
 
     def __getitem__(self, idx):
         batch_fragments = self.x[idx * self.batch_size:
@@ -179,7 +178,7 @@ class FragmentGenerator_multi_tax(Sequence):
 
     def __len__(self):
         return np.ceil(len(self.x)
-                       / float(self.batch_size)).astype(np.int)
+                       / float(self.batch_size)).astype(int)
 
     def __getitem__(self, idx):
         batch_fragments = self.x[idx * self.batch_size:
