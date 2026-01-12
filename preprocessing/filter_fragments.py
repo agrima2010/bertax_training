@@ -2,6 +2,7 @@ import json
 import argparse
 from ete3 import NCBITaxa
 
+offline_db = "./taxa.sqlite"
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -29,7 +30,7 @@ if __name__ == '__main__':
             'input either has to be a json and a txt-list or a fasta')
     print(('json + txt' if out_mode == 'json' else 'fasta')
           + ' has been provided as input, output will be of the same format')
-    ncbi = NCBITaxa()
+    ncbi = NCBITaxa(dbfile=offline_db)
     species_filter = []
     # if (len(args.taxid) == 1 and str(args.taxid[0]).endswith('%')):
     #     perc = int(str(args.taxid[0])[:str(args.taxid[0]).index('%')])

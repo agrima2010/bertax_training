@@ -98,9 +98,9 @@ class TaxID_entry():
 
 
 class TaxidLineage:
-    def __init__(self):
+    def __init__(self, dbfile="./taxa.sqlite"):
         from ete3 import NCBITaxa
-        self.ncbi = NCBITaxa()
+        self.ncbi = NCBITaxa(dbfile=dbfile)
         self.cache = {}
         self.ncbi.db = sqlite3.connect(self.ncbi.dbfile, check_same_thread=False)
 
